@@ -12,7 +12,10 @@ async function main() {
     }
     const data = await postApi.getAll(queryParams)
     console.log(data)
-  } catch (error) {}
+  } catch (error) {
+    console.log('Get all failed', error)
+    // show modal, toast error
+  }
 }
 
 main()
