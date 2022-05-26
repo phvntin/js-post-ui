@@ -10,6 +10,7 @@
 .posts-section .post-item:hover {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  transition: all 0.5s;
 }
 
 /* Zoom card image when hover on card */
