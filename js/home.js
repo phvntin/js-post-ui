@@ -1,39 +1,49 @@
 import postApi from './api/postApi'
 import { setTextContent } from './utils'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+// to use relativeTime
+dayjs.extend(relativeTime)
 
 function createPostItem(post) {
   if (!post) return
 
-  try {
-    // find template post
-    const postTemplate = document.getElementById('postTemplate')
-    if (!postTemplate) return
+  // find template post
+  const postTemplate = document.getElementById('postTemplate')
+  if (!postTemplate) return
 
-    const liElement = postTemplate.content.firstElementChild.cloneNode(true)
-    if (!liElement) return
+  const liElement = postTemplate.content.firstElementChild.cloneNode(true)
+  if (!liElement) return
 
-    // update title, desc, author, ...
-    const thumbnail = liElement.querySelector('[data-id="thumbnail"]')
-    if (thumbnail) thumbnail.src = post.imageUrl
+  // update title, desc, author, ...
+  const thumbnailElement = liElement.querySelector('[data-id="thumbnail"]')
+  if (thumbnailElement) {
+    thumbnailElement.src = post.imageUrl
 
-    // const titleElement = liElement.querySelector('[data-id="title"]')
-    // if (titleElement) titleElement.textContent = post.title
-    setTextContent(liElement, '[data-id="title"]', post.title)
-
-    // const descElement = liElement.querySelector('[data-id="description"]')
-    // if (descElement) descElement.textContent = post.description
-    setTextContent(liElement, '[data-id="description"]', post.description)
-
-    // const authorElement = liElement.querySelector('[data-id="author"]')
-    // if (authorElement) authorElement.textContent = post.author
-    setTextContent(liElement, '[data-id="author"]', post.author)
-
-    // attach events
-
-    return liElement
-  } catch (error) {
-    console.log('Failed to create post element', error)
+    thumbnailElement.addEventListener('error', () => {
+      thumbnailElement.src = 'https://via.placeholder.com/1368x400?text=Image+not+found'
+    })
   }
+
+  // const titleElement = liElement.querySelector('[data-id="title"]')
+  // if (titleElement) titleElement.textContent = post.title
+  setTextContent(liElement, '[data-id="title"]', post.title)
+
+  // const descElement = liElement.querySelector('[data-id="description"]')
+  // if (descElement) descElement.textContent = post.description
+  setTextContent(liElement, '[data-id="description"]', post.description)
+
+  // const authorElement = liElement.querySelector('[data-id="author"]')
+  // if (authorElement) authorElement.textContent = post.author
+  setTextContent(liElement, '[data-id="author"]', post.author)
+
+  // calculate timespan
+  // dayjs(post.updatedAt).fromNow()
+  setTextContent(liElement, '[data-id="timeSpan"]', `- ${dayjs(post.updatedAt).fromNow()}`)
+  // attach events
+
+  return liElement
 }
 
 function renderPostList(postList) {

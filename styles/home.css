@@ -25,6 +25,14 @@
   transform: scale(1.1);
 }
 
+#postList .post-item .card-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
 /* Show menu on card hover */
 .posts-section .post-item {
   position: relative;
