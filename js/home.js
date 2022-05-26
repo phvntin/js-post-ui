@@ -52,6 +52,9 @@ function renderPostList(postList) {
   const ulElement = document.getElementById('postList')
   if (!ulElement) return
 
+  // clear current list
+  ulElement.textContent = ''
+
   postList.forEach((post) => {
     const liElement = createPostItem(post)
     ulElement.appendChild(liElement)
@@ -79,21 +82,48 @@ function renderPagination(pagination) {
   else ulPagination.lastElementChild?.classList.remove('disabled')
 }
 
-function handleFilterChange(filterName, filterValue) {
-  // update query param
-  const url = new URL(window.location)
-  url.searchParams.set(filterName, filterValue)
-  history.pushState({}, '', url)
+async function handleFilterChange(filterName, filterValue) {
+  try {
+    // update query param
+    const url = new URL(window.location)
+    url.searchParams.set(filterName, filterValue)
+    history.pushState({}, '', url)
+
+    // fecth API
+    //re-render post list
+    const { data, pagination } = await postApi.getAll(url.searchParams)
+    renderPostList(data)
+    renderPagination(pagination)
+  } catch (error) {
+    console.log('Failed to fecth post list', error)
+  }
 }
 
 function handlePrevClick(e) {
   e.preventDefault()
   console.log('Prev link')
+
+  const ulPagination = document.getElementById('pagination')
+  if (!ulPagination) return
+
+  const page = Number.parseInt(ulPagination.dataset.page) || 1
+  if (page <= 1) return
+
+  handleFilterChange('_page', page - 1)
 }
 
 function handleNextClick(e) {
   e.preventDefault()
   console.log('Next link')
+
+  const ulPagination = document.getElementById('pagination')
+  if (!ulPagination) return
+
+  const page = Number.parseInt(ulPagination.dataset.page) || 1
+  const totalPages = Number.parseInt(ulPagination.dataset.totalPages)
+  if (page >= totalPages) return
+
+  handleFilterChange('_page', page + 1)
 }
 
 function initPagination() {
@@ -118,20 +148,22 @@ function initUrl() {
   const url = new URL(window.location)
 
   if (!url.searchParams.get('_page')) url.searchParams.set('_page', 1)
-  if (!url.searchParams.get('_limit')) url.searchParams.set('_limt', 6)
+  if (!url.searchParams.get('_limit')) url.searchParams.set('_limit', 6)
 
   history.pushState({}, '', url)
 }
 
 ;(async () => {
   try {
+    // attach click event for links
     initPagination()
+
+    // set default pagination (_page, _limit) on URL
     initUrl()
 
+    // render post list based URL params
     const queryParams = new URLSearchParams(window.location.search)
-    console.log(queryParams.toString())
     const { data, pagination } = await postApi.getAll(queryParams)
-
     renderPostList(data)
     renderPagination(pagination)
   } catch (error) {
