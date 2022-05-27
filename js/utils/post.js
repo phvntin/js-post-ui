@@ -29,7 +29,15 @@ export function createPostItem(post) {
   setTextContent(liElement, '[data-id="description"]', post.description)
   setTextContent(liElement, '[data-id="author"]', post.author)
   setTextContent(liElement, '[data-id="timeSpan"]', `- ${dayjs(post.updatedAt).fromNow()}`)
+
   // attach events
+  // go to post detail when click on post item
+  const postItem = liElement.firstElementChild
+  if (postItem) {
+    postItem.addEventListener('click', () => {
+      window.location.assign(`/post-detail.html?id=${post.id}`)
+    })
+  }
 
   return liElement
 }
