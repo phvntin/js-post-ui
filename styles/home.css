@@ -4,6 +4,11 @@
 
 .posts-section .post-item .card-title {
   color: var(--primary-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }
 
 /* Add box shadow on card hover */
@@ -60,7 +65,6 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-
   transition: all 0.5s;
   transform: scale(0.5);
   transform-origin: top;
