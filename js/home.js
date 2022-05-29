@@ -22,6 +22,7 @@ async function handleFilterChange(filterName, filterValue) {
   }
 }
 
+// MAIN()
 ;(async () => {
   try {
     const url = new URL(window.location)

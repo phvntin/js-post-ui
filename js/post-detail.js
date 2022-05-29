@@ -5,6 +5,7 @@ import { setTextContent } from './utils'
 function renderPostDetail(post) {
   if (!post) return
 
+  setTextContent(document, 'title', `${post.title} - ${post.author}`)
   setTextContent(document, '#postDetailTitle', post.title)
   setTextContent(document, '#postDetailDescription', post.description)
   setTextContent(document, '#postDetailAuthor', post.author)

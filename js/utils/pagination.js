@@ -31,7 +31,7 @@ export function registerPagination({ elementId, defaultParams, onChange }) {
       e.preventDefault()
 
       const page = Number.parseInt(ulPagination.dataset.page) || 1
-      if (page > 2) onChange?.(page - 1)
+      if (page >= 2) onChange?.(page - 1)
     })
   }
 
