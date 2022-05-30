@@ -45,6 +45,7 @@ export function registerLightbox({ modalId, imgSelector, prevSelector, nextSelec
   prevButton.addEventListener('click', () => {
     // show prev image of current album
     currentIndex = (currentIndex - 1 + imgList.length) % imgList.length
+    showImageAtIndex(currentIndex)
   })
 
   nextButton.addEventListener('click', () => {
