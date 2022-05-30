@@ -10,9 +10,10 @@ This website includes 3 pages:
 - Add edit post: `add-edit-post.html`
 
 ### Libraries used
-- [axios](https://github.com/axios/axios): Working with API
-- [dayjs](https://day.js.org/): Format date-time
-- [lodash](https://lodash.com/): Handle debounce 
+- [Bootstrap](https://getbootstrap.com/): Used for building responsive layout
+- [Axios](https://github.com/axios/axios): Working with API
+- [Dayjs](https://day.js.org/): Format date-time
+- [Lodash](https://lodash.com/): Handle debounce 
 
 ## Features
 
@@ -32,7 +33,10 @@ This website includes 3 pages:
 
 ### Post detail page
 - Show detail post
-- Integrate with `Lightbox` to view image when click on image (Coming soon)
+- Integrate with `Lightbox` to view image when click on image 
+  (Coming soon)
 
 ### Add - Edit post page
-`(Coming soon)`
+  (Coming soon)
+  
+> Created by [phvntin](https://github.com/phvntin)
