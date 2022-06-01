@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import postApi from '../api/postApi'
 import { setTextContent } from './common'
 
 // to use relativeTime
@@ -39,7 +40,38 @@ export function createPostItem(post) {
     })
   }
 
+  // add click event for edit button
+  const editButton = liElement.querySelector('[data-id="edit"]')
+  if (editButton) {
+    editButton.addEventListener('click', (e) => {
+      // prevent event bubbling to parent
+      e.stopPropagation()
+      window.location.assign(`/add-edit-post.html?id=${post.id}`)
+    })
+  }
+
+  // add click event for remove button
+  const removeButton = liElement.querySelector('[data-id="remove"]')
+  if (removeButton) {
+    removeButton.addEventListener('click', (e) => {
+      e.stopPropagation()
+      handleRemovePost(post.id)
+    })
+  }
+
   return liElement
+}
+
+async function handleRemovePost(postId) {
+  try {
+    if (window.confirm('Are you sure you want to remove this post?')) {
+      await postApi.remove(postId)
+
+      window.location.reload()
+    }
+  } catch (error) {
+    console.log('Failed to fetch Api', error)
+  }
 }
 
 export function renderPostList(postList) {
