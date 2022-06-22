@@ -46,6 +46,7 @@ export function createPostItem(post) {
     editButton.addEventListener('click', (e) => {
       // prevent event bubbling to parent
       e.stopPropagation()
+
       window.location.assign(`/add-edit-post.html?id=${post.id}`)
     })
   }
