@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import postApi from '../api/postApi'
 import { setTextContent } from './common'
+import { toast } from './toast'
 
 // to use relativeTime
 dayjs.extend(relativeTime)
@@ -56,19 +57,22 @@ export function createPostItem(post) {
   if (removeButton) {
     removeButton.addEventListener('click', (e) => {
       e.stopPropagation()
-      handleRemovePost(post.id)
+      handleRemovePost(post.id, post.title)
     })
   }
 
   return liElement
 }
 
-async function handleRemovePost(postId) {
+async function handleRemovePost(postId, postTitle) {
   try {
-    if (window.confirm('Are you sure you want to remove this post?')) {
+    if (window.confirm(`Are you sure you want to remove "${postTitle}" ?`)) {
       await postApi.remove(postId)
 
-      window.location.reload()
+      toast.success('The post has been removed successfully.')
+      setTimeout(() => {
+        window.location.reload()
+      }, 3000)
     }
   } catch (error) {
     console.log('Failed to fetch Api', error)
