@@ -10,10 +10,12 @@ This website includes 3 pages:
 - Add edit post: `add-edit-post.html`
 
 ### Libraries used
-- [Bootstrap](https://getbootstrap.com/): Used for building responsive layout
-- [Axios](https://github.com/axios/axios): Working with API
-- [Dayjs](https://day.js.org/): Format date-time
-- [Lodash](https://lodash.com/): Handle debounce 
+- [Bootstrap](https://getbootstrap.com/): Used for building responsive layout.
+- [Axios](https://github.com/axios/axios): Working with API.
+- [Dayjs](https://day.js.org/): Format date-time.
+- [Lodash](https://lodash.com/): Handle debounce.
+- [Yup](https://github.com/jquense/yup): Handle validation.
+- [Toastify JS](https://apvarun.github.io/toastify-js/): Used for adding toast messages.
 
 ## Features
 
@@ -28,15 +30,15 @@ This website includes 3 pages:
 
 #### Handle event on each post item
 - `Click`: Go to detail page.
-- `Edit button click`: (Coming soon)
-- `Delete button click`: (Coming soon)
+- `Edit button click`: Go to edit page.
+- `Delete button click`: Remove post.
 
 ### Post detail page
-- Show detail post
-- Integrate with `Lightbox` to view image when click on image 
-  (Coming soon)
+- Show detail post.
+- Integrate with `Lightbox` to view image when click on image.
 
 ### Add - Edit post page
-  (Coming soon)
+- Add new post with: Title, Author, Description, Image(picsum.photos/from your computer)
+- Edit post.
   
 > Created by [phvntin](https://github.com/phvntin)
